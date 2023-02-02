@@ -10,11 +10,19 @@ public class Game {
         currentLetter =0;
     }
     public void guess(){
+        /*TODO get word from renderer
+            send word to server
+            receive result code
+            switch on result code
+                CORRECT:
+                    update (all green)
+
+         */
 
     }
 
     public void type (char c){
-        if (currentLetter < 9){
+        if (currentLetter <= 9){
             rend.type(c,currentGuess,currentLetter);
             currentLetter++;
         }

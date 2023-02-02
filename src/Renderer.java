@@ -27,6 +27,8 @@ public class Renderer { //Class that renders the game's UI and memorizes current
         JLabel l = new JLabel("",JLabel.CENTER);
         l.setOpaque(true);
         l.setBackground(Color.BLACK);
+        l.setFont(new Font("Serif",Font.BOLD,30));
+        l.setForeground(Color.WHITE);
         l.setBorder(BorderFactory.createLineBorder(Color.GRAY));
         l.setBounds(30+col*55,30+row*55,50,50);
         lMap[row][col]=l;
