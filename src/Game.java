@@ -7,7 +7,7 @@ public class Game {
 
     public Game(){
         currentGuess = 0;
-        currentLetter =0;
+        currentLetter = 0;
     }
     public void guess(){
         /*TODO get word from renderer
@@ -33,6 +33,15 @@ public class Game {
             currentLetter--;
             rend.type('/',currentGuess,currentLetter); //use '/' for deletion
         }
+    }
+
+    public void trySignup(String name, char[] pass){
+        //TODO interact with server for signup
+    }
+
+    public void tryLogin(String name, char[] pass){
+        //TODO interact with server for login
+        rend.play();
     }
 
     public static void setRenderer(Renderer r){
