@@ -1,9 +1,11 @@
-public class Game {
+public class Game{
 
     private int currentGuess;
     private int currentLetter;
 
     private static Renderer rend = null;
+
+
 
     public Game(){
         currentGuess = 0;
@@ -37,14 +39,25 @@ public class Game {
 
     public void trySignup(String name, char[] pass){
         //TODO interact with server for signup
+        rend.signupSuccess();
     }
 
     public void tryLogin(String name, char[] pass){
         //TODO interact with server for login
+        rend.loginSuccess();
+    }
+
+    public void play(){
+        //TODO interact with server for play
         rend.play();
     }
 
-    public static void setRenderer(Renderer r){
+    public void tryLogout(){
+        //TODO interact with server for logout
+        rend.logoutSuccess();
+    }
+
+    public void setRenderer(Renderer r){
         rend = r;
     }
 }

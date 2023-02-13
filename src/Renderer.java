@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -13,6 +11,7 @@ public class Renderer { //Class that renders the game's UI and memorizes current
     private JPanel menuPanel,gamePanel,loginPanel,statsPanel,sharePanel;
     public Renderer(Game game){   //TODO arguments
         this.game = game;
+        game.setRenderer(this);
         init();
     }
     public void type(char c, int row, int col){
@@ -71,6 +70,42 @@ public class Renderer { //Class that renders the game's UI and memorizes current
         return p;
     }
 
+    private JPanel menuP(){
+        JPanel p = new JPanel();
+        p.setLayout(null);
+        p.setBackground(Color.BLACK);
+        p.setSize(430,300);
+
+        JButton play = buttonCreator(Color.BLACK,Color.WHITE,100,10,250,70,"Play");
+        play.addActionListener(
+                e -> game.play()
+        );
+
+        JButton stats = buttonCreator(Color.BLACK,Color.WHITE,100,90,250,70,"Show Stats");
+        JButton social = buttonCreator(Color.BLACK,Color.WHITE,100,170,250,70,"Compare with other players!");
+
+        JButton logout = buttonCreator(Color.BLACK,Color.WHITE,0,0,90,30,"Logout");
+        logout.addActionListener(
+                e -> game.tryLogout()
+        );
+
+        p.add(logout);
+        p.add(play);
+        p.add(stats);
+        p.add(social);
+
+        return p;
+    }
+
+    private JButton buttonCreator(Color bg,Color fg, int x, int y, int width, int height, String txt){
+        JButton b = new JButton();
+        b.setBackground(bg);
+        b.setForeground(fg);
+        b.setBounds(x,y,width,height);
+        b.setText(txt);
+        return b;
+    }
+
     private JPanel shareP(){
         JPanel p = new JPanel();
         //TODO complicated share panel
@@ -95,32 +130,14 @@ public class Renderer { //Class that renders the game's UI and memorizes current
         password.setBounds(5,100,400,60);
         password.setForeground(Color.WHITE);
 
-        JButton login = new JButton();
-        login.setBackground(Color.BLACK);
-        login.setBounds(100,170,100,80);
-        login.setForeground(Color.WHITE);
-        login.setText("Login");
+        JButton login = buttonCreator(Color.BLACK,Color.WHITE,100,170,100,80,"Login");
         login.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        game.tryLogin(name.getText(),password.getPassword());
-                    }
-                }
+                e -> game.tryLogin(name.getText(),password.getPassword())
         );
 
-        JButton signup = new JButton();
-        signup.setBackground(Color.BLACK);
-        signup.setBounds(210,170,100,80);
-        signup.setForeground(Color.WHITE);
-        signup.setText("Sign Up");
+        JButton signup = buttonCreator(Color.BLACK,Color.WHITE,210,170,100,80,"Sign Up");
         signup.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        game.trySignup(name.getText(),password.getPassword());
-                    }
-                }
+                e -> game.trySignup(name.getText(),password.getPassword())
         );
 
         p.add(name);
@@ -133,8 +150,27 @@ public class Renderer { //Class that renders the game's UI and memorizes current
     }
 
     public void play(){
-
         switchP(gamePanel);
+    }
+
+    public void loginSuccess(){
+        switchP(menuPanel);
+    }
+
+    public void loginFail(){
+
+    }
+
+    public void signupSuccess(){
+
+    }
+
+    public void signupFail(){
+
+    }
+
+    public void logoutSuccess(){
+        switchP(loginPanel);
     }
 
     private void switchP(JPanel p){
@@ -149,6 +185,7 @@ public class Renderer { //Class that renders the game's UI and memorizes current
         frame = new JFrame();
         loginPanel=loginP();
         gamePanel=gameP();
+        menuPanel=menuP();
         //TODO initialize all other panels
 
         switchP(loginPanel);
