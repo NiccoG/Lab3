@@ -13,7 +13,7 @@ public class Game{
         currentGuess = 0;
         currentLetter = 0;
         //EXAMPLE STAT INSTANCE
-        ArrayList<String> list = new ArrayList<String>(0);
+        ArrayList<String> list = new ArrayList<>(0);
         list.add("1020101202");
         list.add("1020001221");
         list.add("0221102011");
@@ -24,14 +24,8 @@ public class Game{
         //EXAMPLE STAT INSTANCE
     }
     public void guess(){
-        /*TODO get word from renderer
-            send word to server
-            receive result code
-            switch on result code
-                CORRECT:
-                    update (all green)
-
-         */
+        String s = rend.getL(currentGuess);
+        //TODO communicate with server
         if(currentLetter == 10){
             currentLetter = 0;
             currentGuess++;
@@ -39,6 +33,7 @@ public class Game{
     }
 
     public void type (char c){
+        System.out.println("game stuff by "+Thread.currentThread().getName());
         rend.nextL();
         if (currentLetter <= 9){
             rend.type(c,currentGuess,currentLetter);
@@ -47,6 +42,7 @@ public class Game{
     }
 
     public void delete(){
+        System.out.println("game stuff by "+Thread.currentThread().getName());
         if (currentLetter > 0){
             currentLetter--;
             rend.type('/',currentGuess,currentLetter); //use '/' for deletion
@@ -59,11 +55,13 @@ public class Game{
     }
 
     public void tryLogin(String name, char[] pass){
+        System.out.println("game stuff by "+Thread.currentThread().getName());
         //TODO interact with server for login
         rend.login(true);
     }
 
     public void play(){
+        System.out.println("game stuff by "+Thread.currentThread().getName());
         //TODO interact with server for play
         rend.play(true);
     }
@@ -74,6 +72,7 @@ public class Game{
     }
 
     public void tryStats(){
+        System.out.println("game stuff by "+Thread.currentThread().getName());
         //TODO interact with server for stats
         rend.stat(true);
     }

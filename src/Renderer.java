@@ -1,3 +1,5 @@
+//TODO FAIL OF VARIOUS METHODS
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -39,6 +41,7 @@ public class Renderer { //Class that renders the game's UI and memorizes current
         return l;
     }
     private JLabel wLetter(int row, int col){
+        System.out.println("write letters by "+Thread.currentThread().getName());
         JLabel l = new JLabel("",JLabel.CENTER);
         l.setBackground(Color.BLACK);
         l.setFont(new Font("Serif",Font.BOLD,30));
@@ -147,7 +150,7 @@ public class Renderer { //Class that renders the game's UI and memorizes current
 
         return p;
     }
-    private Color numberToColor(char c){
+    private Color numberToColor(char c){ //TODO maybe use some sort of map instead of 2 methods for colors
         return switch (c) {
             case '1' -> Color.YELLOW;
             case '2' -> Color.GREEN;
@@ -241,7 +244,6 @@ public class Renderer { //Class that renders the game's UI and memorizes current
                 sharePanel.add(l);
             }
         }
-        //TODO complicated share panel
     }
 
     private JPanel statsP(){
@@ -322,6 +324,13 @@ public class Renderer { //Class that renders the game's UI and memorizes current
         frame.repaint();
     }
 
+    public String getL(int row){
+        String s="";
+        for (int col=0; col < 10; col++){
+            s=s.concat(lMap[row][col].getText());
+        }
+        return s;
+    }
     public void nextL(){  //TODO Data package class
         //color stuff
     }
@@ -363,7 +372,7 @@ public class Renderer { //Class that renders the game's UI and memorizes current
     }
 
 
-    public void social(boolean success, ShareInstance s){ //TODO SHAREINSTANCE AND PANEL
+    public void social(boolean success, ShareInstance s){
         if (success){
             newShareP(s);
             switchP(sharePanel);
